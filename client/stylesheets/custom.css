@@ -1,0 +1,237 @@
+#nav {
+	/*margin-bottom: 0%;*/
+}
+#comment-date {
+  float:right;
+}
+#username {
+  float:left;
+}
+#post {
+  font-size: 15px;
+}
+
+#custom-container {
+  max-width: 800px;
+}
+
+#cal {
+  margin-left: 30%
+}
+
+#login-btn {
+  float:right; 
+  margin-right: 4%;
+}
+
+#password-box {
+  margin-top:3;
+}
+
+#login-container {
+  margin-top: 5%;
+}
+
+#loading-span {
+  margin-left: 15%;
+}
+/* CSS declarations go here */
+.new-post {
+    margin-left: -2%;
+}
+.posts {
+    margin-left: -2%;
+}
+.navbar-default {
+  background-color: #388db8;
+  border-color: #027a98;
+}
+.navbar-default .navbar-brand {
+  color: #dcdedf;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #fefffe;
+}
+.navbar-default .navbar-text {
+  color: #dcdedf;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #dcdedf;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #fefffe;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu {
+  background-color: #388db8;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+  color: #dcdedf;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+  color: #fefffe;
+  background-color: #027a98;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+  background-color: #388db8;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #fefffe;
+  background-color: #027a98;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #fefffe;
+  background-color: #027a98;
+}
+.navbar-default .navbar-toggle {
+  border-color: #027a98;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #027a98;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #dcdedf;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #dcdedf;
+}
+.navbar-default .navbar-link {
+  color: #dcdedf;
+}
+.navbar-default .navbar-link:hover {
+  color: #fefffe;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #dcdedf;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #fefffe;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fefffe;
+    background-color: #027a98;
+  }
+}
+.post-content {
+    text-align:left;
+    /*text-indent: 25px;*/
+    margin-left: 4%;
+    margin-right: 3%;
+    margin-top: 3%;
+}
+#upvote-btn {
+    float:left;
+    margin-left:10%;
+    cursor: inherit;
+}
+.btn .btn-primary .comment-btn {
+    margin-left: 10%
+}
+.post-date {
+    font-size: 11px;
+    float:right;
+    margin-right:4%;
+    margin-top:1%;
+}
+.comment-author {
+    float: left;
+}
+.comment-body {
+    text-align: left;
+    margin-left: 1%;
+    text-indent: 4px;
+}
+.new-topic {
+    width:20%;
+    margin-left: 40%;
+}
+
+.page-header {
+    font-size: 120;
+}
+.comments .author{
+    font-size: 14px;
+    font-weight: bold;
+}
+.comments .content {
+    font-size: 14px;
+}
+.comments .date{
+    font-size: 10px;
+}
+.navbar-default {
+  background-color: #388db8;
+  border-color: #027a98;
+}
+.navbar-default .navbar-brand {
+  color: #dcdedf;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #fefffe;
+}
+.navbar-default .navbar-text {
+  color: #dcdedf;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #dcdedf;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #fefffe;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu {
+  background-color: #388db8;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+  color: #dcdedf;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+  color: #fefffe;
+  background-color: #027a98;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+  background-color: #388db8;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #fefffe;
+  background-color: #027a98;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #fefffe;
+  background-color: #027a98;
+}
+.navbar-default .navbar-toggle {
+  border-color: #027a98;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #027a98;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #dcdedf;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #dcdedf;
+}
+.navbar-default .navbar-link {
+  color: #dcdedf;
+}
+.navbar-default .navbar-link:hover {
+  color: #fefffe;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #dcdedf;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #fefffe;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fefffe;
+    background-color: #027a98;
+  }
+}
