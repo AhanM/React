@@ -5,18 +5,7 @@ Home = React.createClass({
 	getMeteorData() {
 		
 		var handlePosts = Meteor.subscribe('posts');
-
-		// let data = {};
-		// data.posts = [];
-
-		// if(handlePosts.ready()) {
-		// 	data.posts = Posts.find({}, {sort: {time: -1}}).fetch();
-		// }
-
-		// data.currentUser = Meteor.user();
-		// data.commentCount = 1;
-		
-		// return data;		
+		var handle = Meteor.subscribe('hashtagCollection'); 
 
 		return {
 			currentUser: Meteor.user(), 
@@ -31,10 +20,48 @@ Home = React.createClass({
 
 		var text = $(e.target).find("[name=text]").val();
 
+		var hashtagArray = [];
+        // acquiring hashtags from text
+        for(var i=0; i < text.length - 1; i++) {
+            if(text.charAt(i) == '#') {
+                 for(var j = i+1; j < text.length; j++) {
+                     if(text.charAt(j) == ' ') {
+                           hashtagArray.push(text.slice(i+1,j));
+                           // console.log(text.slice(i+1,j));
+                           i = j;
+                           break;
+                     } else if(j == text.length - 1) {
+                           hashtagArray.push(text.slice(i+1,j+1));
+                           // console.log(text.slice(i+1,j+1));
+                           break;
+                     }
+                 }
+            }
+        }
+
+        // add hashtags to the HashtagCollection if they arent already there
+        for(var i = 0; i < hashtagArray.length; i++) {
+            if(HashtagCollection.find({hashtag: hashtagArray[i]}).count() == 0)
+            {
+            	console.log(hashtagArray[i]);
+
+                HashtagCollection.insert({
+                    hashtag: hashtagArray[i],
+                    text: '#'+hashtagArray[i],
+                    relevantPosts: 1
+                });
+            }
+            else {
+            	console.log("increasing relevant posts for "+hashtagArray[i]);
+                Meteor.call('incRelevantPosts', hashtagArray[i]);
+            }
+        }
+
+
 		if(text!= "" && this.data.currentUser) {
             Posts.insert({
                 text: text,
-                // hashtags : hashtagArray,
+                hashtags : hashtagArray,
                 userId: Meteor.user()._id,
                 username: Meteor.user().username || Meteor.user().profile.name,
                 points: 0,
@@ -45,7 +72,6 @@ Home = React.createClass({
             });
         }
 
-        // React.findDOMNode(this.refs.text).value = "";
         ReactDOM.findDOMNode(this.refs.text).value = ""
 
 	},
@@ -70,19 +96,9 @@ Home = React.createClass({
 			);
 		}
 		
-		if(postsLoading) {
-			console.log("POSTS");
-			console.log(this.data.posts);
-		}
-
 		var listPosts = this.data.posts.map(function(record) {
 			return <Post key={record._id} post={record} />
 		});
-
-		
-		// var listPosts = this.data.posts.map(function(record) {
-		// 	return <Post key ={record._id} post = "record" cmtCount = {data.commentCount} />
-		// });
 
 		return (
 

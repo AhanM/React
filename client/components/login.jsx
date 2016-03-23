@@ -12,8 +12,6 @@ Login = React.createClass({
 			if(err) {
 				console.log(err.reason);
 			} else {
-				console.log("Logged in!");
-				console.log("routing to home");
 				FlowRouter.go("Home");
 			}
 

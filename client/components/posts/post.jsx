@@ -10,7 +10,7 @@ Post = React.createClass({
 			commentsCount: Comments.find({postId:this.props.post._id}).count(),
 			upvotedClass: function() {
 			        var userId = Meteor.userId();
-			        if(userId && !_.include(this.upvoters, userId)) {
+			        if(userId && !_.include(this.props.post.upvoters, userId)) {
 			            return 'btn-primary upvoteable';
 			        } else {
 			            return 'disabled';
@@ -18,7 +18,7 @@ Post = React.createClass({
 			    },
 			isUpvoted: function () {
 
-			        upvoters = this.upvoters;
+			        upvoters = this.props.post.upvoters;
 			        userId = Meteor.userId();
 
 			        if(userId && _.include(upvoters, userId)) {
@@ -50,12 +50,14 @@ Post = React.createClass({
             });
         }
 
-        // React.findDOMNode(this.refs.text).value = "";
         ReactDOM.findDOMNode(this.refs.text).value = "";
 	},
 
 	upvoteHandler(e) {
 		e.preventDefault();
+
+		console.log("upvote handler triggered!");
+
 		if(this.data.isUpvoted()) {
 			console.log("Error: Post already upvoted")
 		} else {
@@ -82,7 +84,7 @@ Post = React.createClass({
 
 			        <br />
 
-			        <button className="upvote btn {upvotedClass()}" onSubmit={ this.upvoteHandler } id="upvote-btn"> Upvote <span className="badge">{this.props.post.points}</span></button>
+			        <button className="upvote btn { upvotedClass }" onSubmit={ this.upvoteHandler } id="upvote-btn"> Upvote <span className="badge">{this.props.post.points}</span></button>
 
 			        <button className="btn btn-primary comment-btn" type="button">
 			          Comments <span className="badge"> {this.data.commentsCount} </span>

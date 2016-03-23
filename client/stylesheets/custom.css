@@ -18,6 +18,10 @@
 #cal {
   margin-left: 30%
 }
+#hashtagResult {
+  width:40%; 
+  margin-left:15%;
+}
 
 #login-btn {
   float:right; 

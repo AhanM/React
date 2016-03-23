@@ -40,6 +40,13 @@ FlowRouter.route("/about", {
 	}
 });
 
+// Dyanamic Routing for Hashtag Threads
+FlowRouter.route("/hashtags/:tag", {
+	action(params) {
+		renderMainLayoutWith(<Topic hashtag={params.tag} />);
+	}
+})
+
 function renderMainLayoutWith(component) {
 	ReactLayout.render(MainLayout, {
 		header : <Header />,
