@@ -1,3 +1,12 @@
+var fields  = ['text'];
+
+var options = {
+    keepHistory: 1000 * 60 * 5,
+    localSearch: true
+};
+
+HashtagSearch = new SearchSource('hashtags', fields, options);
+
 Hashtags = React.createClass({
 
 	mixins : [ReactMeteorData],
@@ -6,54 +15,39 @@ Hashtags = React.createClass({
 		
 		var handle = Meteor.subscribe('hashtagCollection'); 
 
-		HashtagSearch = new SearchSource('hashtags', fields, options);
-
-		var options = {
-		    keepHistory: 1000 * 60 * 5,
-		    localSearch: true
-		};
-
-		var fields  = ['text'];
-
 		return {
 			hashtagsLoading: !HashtagSearch.getStatus().loaded,
 
 			hashtagsList: HashtagCollection.find({}, {sort: {relevantPosts: -1}}).fetch(),
 
-			getHashtags: function() {
-				HashtagSearch.getData({ 
-					transform: function(matchText, regExp) {
+			getHashtags: HashtagSearch.getData({ 
+				transform: function(matchText, regExp) {
 			            return matchText.replace(regExp, "<b>$&</b>")
 			        },
-			        sort: {relevantPosts: -1}
-			    });
-			}
+			    sort: {relevantPosts: -1}
+
+			}),
+		
 		};
 	},
 
-	onkeyUp(e) {
-		e.preventDefault();
-		console.log("Key up triggered");
+	onkeyUp: _.throttle(function(e) {
+        var text = ReactDOM.findDOMNode(this.refs.text).value.trim();
+        HashtagSearch.search(text);
+    	}, 200),
 
-		_.throttle(
-			function(e) {
-		        var text = $(e.target).find("[name=text]").val().trim();
-		        HashtagSearch.search(text); 
-		    }, 200);
+	getInitialState() {
+		console.log("onCreated triggered");
+		HashtagSearch.search("");
+		return {data: []};
 	},
 
 	render() {
 		let isLoading;
-		
-		console.log(this.data.getHashtags);
 
-		// var listSearchResults = this.data.getHashtags().map(function(record) {
-		// 		<HashtagResult key={record._id} result = {record} />
-		// 	});
-
-		var listSearchResults = this.data.hashtagsList.map(function(record) {
+		var listSearchResults = this.data.getHashtags.map(function(record) {
 				return <HashtagResult key={record._id} result = {record} />
-			});
+		});
 
 		if(this.data.hashtagsLoading) {
 			isLoading = (
@@ -70,7 +64,7 @@ Hashtags = React.createClass({
 			<div className="contianer">
 				<form className="new-topic" onKeyUp={ this.onkeyUp }>
 			        <div className="">
-			            <input type="text" id="search-box" className="form-control input" rows="1" placeholder="Search for Hashtags" />
+			            <input type="text" ref="text" name="text" id="search-box" className="form-control input" rows="1" placeholder="Search for Hashtags" />
 			        </div>
 			    </form>
 			    <div className="row">  
@@ -95,7 +89,7 @@ HashtagResult = React.createClass({
 		return (
 			<div>
 				<li className="list-group-item" id= "hashtagResult">
-			            <a href={ anchor }>{ this.props.result.text }</a>
+			            <a href={anchor} dangerouslySetInnerHTML={{__html: this.props.result.text}}></a>
 			            <span className="badge">{ this.props.result.relevantPosts }</span>
 			    </li>
 			</div>
