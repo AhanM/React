@@ -24,3 +24,9 @@ meteorhacks:search-source
 momentjs:moment
 check
 ejson
+accounts-ui-unstyled
+accounts-facebook
+meteorhacks:npm
+
+
+npm-container

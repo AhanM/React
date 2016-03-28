@@ -21,17 +21,27 @@ Login = React.createClass({
 		return (
 			<div className="container" id="login-container">
 					<div className="col-lg-3" id="cal">
-						<h2>Login</h2>
-				        <form className="form-group" onSubmit={ this.onSubmit }>
-				            <input name="username" type="text" className="form-control" placeholder="Username" />
-				            <input name="password" type="password" className="form-control" placeholder="Password" id="password-box" />
-				            <span className="container">
-				                <a>Sign Up</a> | <a> Forgot Password?</a>
-				                <button className="btn btn-primary" id="login-btn">Login</button>
-				            </span>
-				        </form>
+						<h1 className="login-header">Login</h1>
+						<br />
+				        <AccountsUIWrapper />
 				    </div>
 			</div>
 		);
 	}
-})
+});
+AccountsUIWrapper = React.createClass({
+  componentDidMount() {
+    // Use Meteor Blaze to render login buttons
+    this.view = Blaze.render(Template.loginButtons,
+      ReactDOM.findDOMNode(this.refs.container));
+  },
+  componentWillUnmount() {
+    // Clean up Blaze view
+    Blaze.remove(this.view);
+  },
+  render() {
+    // Just render a placeholder container that will be filled in
+    return <span ref="container" />;
+  }
+});
+

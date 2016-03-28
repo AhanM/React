@@ -105,8 +105,8 @@ Home = React.createClass({
 				<div className="container" id="custom-container">
 					<center className="page-header">
 						
-						<h1 className="text-center">Bantr React</h1>
-						<p className="text-center">Blaze to React in no time</p>
+						<h1 className="text-center"><strong>Bantr React</strong></h1>
+						<h4 className="text-center">Blaze to React in no time</h4>
 
 						{ form }
 

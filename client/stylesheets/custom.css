@@ -16,7 +16,8 @@
 }
 
 #cal {
-  margin-left: 30%
+  margin-left: 35%;
+  text-align: center;
 }
 #hashtagResult {
   width:40%; 
@@ -27,13 +28,16 @@
   float:right; 
   margin-right: 4%;
 }
+.login-header {
+  text-align: center;
+}
 
 #password-box {
   margin-top:3;
 }
 
 #login-container {
-  margin-top: 5%;
+  margin-top: 0%;
 }
 
 #loading-span {
