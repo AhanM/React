@@ -1,4 +1,3 @@
 # React
-#### Immediate Agenda
-* Upvoting
+
 
