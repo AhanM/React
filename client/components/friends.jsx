@@ -9,7 +9,7 @@ Friends = React.createClass({
 
 		       for (i = 0; i < friendList.length; i++)
 		       {
-		            friend.push(friendList[0].name);
+		            friend.push(friendList[i].name);
 		       };
 
 		       return friend.toString();

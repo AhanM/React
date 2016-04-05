@@ -5,23 +5,25 @@ Post = React.createClass({
 	getMeteorData() {
 		var handleComments = Meteor.subscribe('comments');
 
+		var publication = this.props.post;
+
 		return {
 			comments: Comments.find({postId:this.props.post._id},{sort:{time:1}}).fetch(),
 			commentsCount: Comments.find({postId:this.props.post._id}).count(),
 			upvotedClass: function() {
 			        var userId = Meteor.userId();
-			        if(userId && !_.include(this.props.post.upvoters, userId)) {
-			            return 'btn-primary upvoteable';
+			        if(userId && !_.include(publication.upvoters, userId)) {
+			            return 'upvote btn btn-primary upvoteable';
 			        } else {
-			            return 'disabled';
+			            return 'upvote btn disabled';
 			        }
 			    },
 			isUpvoted: function () {
 
-			        upvoters = this.props.post.upvoters;
+					console.log("IsUpvoted trigggered");
 			        userId = Meteor.userId();
 
-			        if(userId && _.include(upvoters, userId)) {
+			        if(userId && _.include(publication.upvoters, userId)) {
 			            return 'Upvoted';
 			        }
 			        else {
@@ -56,9 +58,7 @@ Post = React.createClass({
 	upvoteHandler(e) {
 		e.preventDefault();
 
-		console.log("upvote handler triggered!");
-
-		if(this.data.isUpvoted()) {
+		if(this.data.isUpvoted() === "Upvoted") {
 			console.log("Error: Post already upvoted")
 		} else {
 
@@ -67,8 +67,6 @@ Post = React.createClass({
 	},
 
 	render() {
-
-		let { upvotedClass } = this.data;
 
 		var listComments = this.data.comments.map(function(record){
 			return <Comment key={record._id} comment={record} />
@@ -84,7 +82,7 @@ Post = React.createClass({
 
 			        <br />
 
-			        <button className="upvote btn { upvotedClass }" onSubmit={ this.upvoteHandler } id="upvote-btn"> Upvote <span className="badge">{this.props.post.points}</span></button>
+			        <button className={ this.data.upvotedClass() } onClick={ this.upvoteHandler } id="upvote-btn"> {this.data.isUpvoted()} <span className="badge">{this.props.post.points}</span></button>
 
 			        <button className="btn btn-primary comment-btn" type="button">
 			          Comments <span className="badge"> {this.data.commentsCount} </span>
