@@ -1,23 +1,19 @@
-Header = React.createClass({
+import React, { Component, PropTypes } from 'react';
+import { Meteor } from 'meteor/meteor';
 
-	mixins : [ReactMeteorData],
-	getMeteorData() {
-		return {
-			currentUser: Meteor.user()
-		}
-	},
-
+export default class Header extends Component {
 	handleLogout() {
 		Meteor.logout();
-	},
+	}
 
 	render() {
 		let loginButton;
-		let { currentUser } = this.data;
+		// let { currentUser } = this.data;
+		const currentUser = Meteor.user();
 
 		if (currentUser) {
 			loginButton = (
-				<li className=""><a href="#" onClick={ this.handleLogout }>Logout</a></li>
+				<li className=""><a href="#" onClick={ this.handleLogout.bind(this) }>Logout</a></li>
 			)
 		} else {
 			loginButton = (
@@ -56,5 +52,4 @@ Header = React.createClass({
 			</div>
 		);
 	}
-
-})
+}

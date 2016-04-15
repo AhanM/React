@@ -1,20 +1,15 @@
-Home = React.createClass({
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 
-	mixins : [ReactMeteorData],
+import { Posts } from '../api/posts.js';
+import Post from './Post.jsx';
+import { Comments } from '../api/comments.js';
 
-	getMeteorData() {
-		
-		var handlePosts = Meteor.subscribe('posts');
-		var handle = Meteor.subscribe('hashtagCollection'); 
+import { HashtagCollection } from '../api/hashtags.js';
 
-		return {
-			currentUser: Meteor.user(), 
-			postsLoading: handlePosts.ready(),
-			posts: Posts.find({}, {sort: {time: -1}}).fetch()
-		     
-		}
-	},
-
+class Home extends Component {
 	onSubmit(e) {
 		e.preventDefault();
 
@@ -44,45 +39,39 @@ Home = React.createClass({
             if(HashtagCollection.find({hashtag: hashtagArray[i]}).count() == 0)
             {
             	console.log(hashtagArray[i]);
-
-                HashtagCollection.insert({
-                    hashtag: hashtagArray[i],
-                    text: '#'+hashtagArray[i],
-                    relevantPosts: 1
-                });
+                Meteor.call('hashtags.insert', hashtagArray[i], '#'+hashtagArray[i], 1);
             }
             else {
             	console.log("increasing relevant posts for "+hashtagArray[i]);
-                Meteor.call('incRelevantPosts', hashtagArray[i]);
+                Meteor.call('hashtags.incRelevantPosts', hashtagArray[i]);
             }
         }
 
 
-		if(text!= "" && this.data.currentUser) {
-            Posts.insert({
-                text: text,
-                hashtags : hashtagArray,
-                userId: Meteor.user()._id,
-                username: Meteor.user().username || Meteor.user().profile.name,
-                points: 0,
-                votedUp : false,
-                upvoters : [],
-                createdAt : moment().format('MMMM Do YYYY, h:mm:ss a'),
-                time : new Date().getTime()
-            });
+		if(text!= "") {
+			Meteor.call('posts.insert', text, hashtagArray);
         }
 
         ReactDOM.findDOMNode(this.refs.text).value = ""
 
-	},
+	}
 
-	render() {
+	renderPosts() {
+
+		return this.props.posts.map((post) => {
+			const relevantComments = Comments.find({postId: post._id}).fetch();
+			return <Post key={post._id} post={post} />
+		});
+	}
+
+	render() 
+	{
 		let form;
-		let { currentUser, commentsCount, postsLoading } = this.data;
+		// let { currentUser, commentsCount, postsLoading } = this.data;
 
-		if(currentUser) {
+		if(this.props.currentUser) {
 			form = (
-				<form className="new-post" onSubmit={ this.onSubmit }>
+				<form className="new-post" onSubmit={ this.onSubmit.bind(this) }>
 					<div className="form-group">
 						<textarea className="form-control" ref="text" name="text" placeholder="Write a bantr..." rows="2"></textarea>
 						<br></br>
@@ -95,10 +84,6 @@ Home = React.createClass({
 				<p> Please <a href="/login">login</a> to post </p>
 			);
 		}
-		
-		var listPosts = this.data.posts.map(function(record) {
-			return <Post key={record._id} post={record} />
-		});
 
 		return (
 
@@ -111,13 +96,31 @@ Home = React.createClass({
 						{ form }
 
 						<ul className="list-group">
-							{ listPosts }
+							{this.renderPosts()}
 	    				</ul>
 
 		            </center>
             	</div>
-
-
 		);
 	}
-})
+}
+
+Home.PropTypes = {
+	posts: PropTypes.array.isRequired,
+	currentUser: PropTypes.object.isRequired,
+	commentsCount: PropTypes.number.isRequired,
+	postsLoading: PropTypes.object.isRequired,
+};
+
+export default createContainer( () => {
+	const handlePosts = Meteor.subscribe('posts');
+	const handleComments = Meteor.subscribe('comments');
+	const handle = Meteor.subscribe('hashtagCollection'); 
+
+	return  {
+		posts: Posts.find({}, {sort: {time: -1}}).fetch(),
+		currentUser: Meteor.user(),
+		commentsCount: 0,
+		postsLoading: handlePosts.ready(),
+	};
+}, Home);

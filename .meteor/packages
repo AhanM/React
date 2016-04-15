@@ -12,13 +12,10 @@ session                 # Client-side reactive dictionary for your app
 jquery                  # Helpful client-side library
 tracker                 # Meteor's client-side reactive programming library
 
-standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
-react
 kadira:flow-router
-kadira:react-layout
 accounts-password
 meteorhacks:search-source
 momentjs:moment
@@ -26,7 +23,9 @@ check
 ejson
 accounts-ui-unstyled
 accounts-facebook
-meteorhacks:npm
 
 
-npm-container
+react-meteor-data
+accounts-base
+standard-minifier-css
+standard-minifier-js
