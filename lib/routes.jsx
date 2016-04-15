@@ -8,7 +8,7 @@ import Contact from '../imports/ui/Contact.jsx';
 import About from '../imports/ui/About.jsx';
 import Friends from '../imports/ui/Friends.jsx';
 import Hashtags from '../imports/ui/Hashtags.jsx';
-import Topic from '../imports/ui/Hashtags.jsx';
+import Topic from '../imports/ui/Topic.jsx';
 
 import Header from '../imports/ui/layout/Header.jsx';
 import MainLayout from '../imports/ui/layout/MainLayout.jsx';
